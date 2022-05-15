@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="">
+<head>
+    <title>로그인</title>
+    <meta name="description" content="로그인">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body class="text-center">
+<div class="container">
+<h2>로그인</h2>
+    <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-danger"> 로그인 오류 메시지 </p>
+<form class="form-sign" method="POST" th:action="@{/login}" th:object="${loginForm}">
+    <div class="form-group">
+        <input placeholder="사용자아이디" th:field="*{username}">
+        <br>
+        <span class="ui-state-error-text"
+              th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</span>
+    </div>
+    <div class="form-group">
+        <input placeholder="비밀번호" th:field="*{password}"
+               type="password">
+        <br>
+        <span class="error-message"
+              th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</span>
+    </div>
+    <button type="submit" class="btn btn-primary">로그인</button>
+    <br>
+    <p th:if="${message}" th:text="${message}"></p>
+</form>
+
+    <div>
+        <h3>아이디가 없으시나요? </h3>
+    </div>
+    <div>
+        <a href="#" th:href="@{/register}">회원가입</a>
+    </div>
+    <div>
+        <h3>비밀번호를 잊으셨나요? </h3>
+    </div>
+    <div>
+        <a href="#" th:href="@{/findpw}">비밀번호찾기</a>
+    </div>
+
+</div>
+</body>
+</html>

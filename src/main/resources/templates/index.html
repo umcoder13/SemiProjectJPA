@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="">
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <title>어서오세요</title>
+</head>
+<body>
+<div class="block">
+    <div class="center">
+        <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">
+            <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>
+            <button sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Login</button>
+        </form>
+        <li sec:authorize="isAuthenticated()" class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/list}">게시판</a>
+        </li>
+    </div>
+</div>
+</body>

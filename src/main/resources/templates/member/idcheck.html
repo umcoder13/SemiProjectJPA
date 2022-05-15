@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th ="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>아이디체크</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="block">
+    <form class="center" name="joinform" method="POST" th:action="@{/checkid}">
+        <p th:text="${username}"></p>
+        <input type="hidden" name="username" th:value="${username}">
+        <span th:if="${check.toString().equals('1')}">등록가능합니다</span>
+        <span th:if="${check.toString().equals('0')}">등록 불가능합니다</span>
+        <br>
+        <button th:if="${check.toString().equals('1')}" type="button" value="등록버튼" onclick = closeId()>등록</button>
+        <script>
+            function closeId() {
+                var url = "checkid?username=" + document.joinform.username.value;
+                opener.document.location.href = url
+                window.close(url);
+            }
+        </script>
+    </form>
+</div>
+</body>
+</html>

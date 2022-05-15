@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>비밀번호 수정</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="block">
+    <div class="center">
+        <h3>비밀번호는</h3>
+        <p th:text="${password}"></p>
+        <br>
+        <h3>로 수정되었습니다.</h3>
+        <a href="#" th:href="@{/login}">로그인 하러 가기</a>
+    </div>
+</div>
+</body>
+</html>

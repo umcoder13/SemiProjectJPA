@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th ="http://www.thymeleaf.org">
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+    function moveHome() {
+        location.href = "/list"
+    }
+</script>
+<link th:href="@{/css/style.css}" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/list}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/insert}">등록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:if="${id}" th:href="@{/member/update/{id}(id=${id})}" th:text="${author}"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">로그아웃</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div style="margin: 10px">
+    <h3>글목록</h3>
+    <div class="form-row" th:each="article: ${articleOptional}" th:object="${articleOptional}">
+        <form class="btn btn-secondary" method="get" th:action="@{/update/{id}(id=${article.id})}">
+            <input type="submit" value="수정">
+        </form>
+        <form class="btn btn-secondary" method="POST" th:action="@{/delete}">
+            <input type="hidden" name="id" th:value="${article.id}">
+            <input type="submit" value="삭제">
+        </form>
+    </div>
+    <table class="table">
+        <tr>
+            <th>글 번호</th>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>본문</th>
+            <th>등록시간</th>
+        </tr>
+    </table>
+    <table class="table">
+        <tr th:each="article: ${articleOptional}" th:object="${articleOptional}">
+        <tr align="center">
+            <td th:text="${articleOptional.id}"></td>
+            <td th:text="${articleOptional.author}"></td>
+            <td th:text="${articleOptional.title}"></td>
+            <td th:text="${articleOptional.mainarticle}"></td>
+            <td th:text="${#temporals.format(articleOptional.time, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+    </table>
+    <button type="button" onclick="moveHome();">목록으로</button>
+</div>
+</body>
+</html>

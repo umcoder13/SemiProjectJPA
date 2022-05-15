@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th ="http://www.thymeleaf.org">
+<head>
+    <title>게시판</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/list}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/insert}">등록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:if="${id}" th:href="@{/member/update/{id}(id=${id})}" th:text="${author}"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">로그아웃</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="limiter">
+    <div class="container-table100">
+        <div id="page_title">
+            <h2>목록</h2>
+        </div>
+        <div class="table100-head">
+            <p th:if="${delcomplete}" th:text="${delcomplete}" style="color:blue"></p>
+            <p th:if="${updatable}" th:text="${updatable}"></p>
+            <table class="table">
+                <thead>
+                <tr class="row100 head">
+                    <th class="keycolumn">key</th>
+                    <th class="titlecolumn">제목</th>
+                    <th class="authorcolumn">작성자</th>
+                    <th class="timecolumn">등록일</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="table100-body js-pscroll">
+            <table class="table">
+                <tbody th:if="${articleList.getSize() >= 1}">
+                <tr th:each="article: ${articleList}" th:object="${article}" class="row100 body">
+                    <td th:text="${article.id}"></td>
+                    <td><a th:href="@{/list/view/{id}(id=${article.id})}"
+                           th:text="${article.title}"></a></td>
+                    <td th:text="${article.author}" class="authorcolumn"></td>
+                    <td th:text="${#temporals.format(article.time, 'yyyy-MM-dd HH:mm')}" class="timecolumn4"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<nav style="text-align: center;">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

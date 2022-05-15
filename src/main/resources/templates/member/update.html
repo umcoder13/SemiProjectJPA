@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원정보 수정</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="block">
+<h2>회원정보 수정</h2>
+<form class="center" name="joinform" method="POST" th:action="@{/member/update}" th:object="${memberDto}">
+    <div>
+        <input placeholder="사용자아이디" th:field="*{username}" type="hidden">
+        <p th:text="${memberDto.username}"></p>
+    </div>
+    <div>
+        <input placeholder="비밀번호" th:field="*{password}"
+               type="password">
+        <span class="error-message"
+              th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</span>
+    </div>
+    <div>
+        <input placeholder="비밀번호재입력" th:field="*{checkpw}"
+               type="password">
+        <span class="error-msg" th:if="${message != null}" th:text="${message}"></span>
+    </div>
+    <div>
+        <input placeholder="이름" th:field="*{name}" type="text">
+        <span class="error-message"
+              th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error</span>
+    </div>
+    <div>
+        <input placeholder="메일" th:field="*{email}" type="text">
+        <span class="error-message"
+              th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</span>
+    </div>
+    <button>등록하기</button>
+
+</form>
+</div>
+</body>
+</html>
